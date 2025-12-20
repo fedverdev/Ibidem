@@ -1,0 +1,29 @@
+@startuml
+
+!include <C4/C4_Context>
+
+title C4 level 1 - Voice chat app context diagram. \n(Logical separation for clarity. Same application in different runtime roles)
+
+Person(host, "Host", "A person that uses the app as host")
+Person(user1, "User", "A person that uses the app")
+
+System(voiceChatApp1, "Voice chat app", "The application that provides voice chatting over VPN")
+System(voiceChatApp2, "Voice chat app", "The application that provides voice chatting over VPN")
+System(voiceChatAppHost, "Voice chat app\n(host mode)", "In host mode it used to for collecting and distributing audio data between participants")
+
+Person(user2, "User", "A person that uses the app")
+
+Rel(user1, voiceChatApp1, "Sends his voice")
+Rel(voiceChatApp1, user1, "Sends others voices")
+Rel(voiceChatApp1, voiceChatAppHost, "Transfer user's voice")
+
+Rel(user2, voiceChatApp2, "Sends his voice")
+Rel(voiceChatApp2, user2, "Sends others voices")
+Rel(voiceChatApp2, voiceChatAppHost, "Transfer user's voice")
+
+Rel(host, voiceChatAppHost, "Sends his voice")
+Rel(voiceChatAppHost, host, "Sends others voice")
+Rel(voiceChatAppHost, voiceChatApp1, "Transfer other users' voices")
+Rel(voiceChatAppHost, voiceChatApp2, "Transfer other users' voices")
+
+@enduml
