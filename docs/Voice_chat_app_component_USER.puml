@@ -1,0 +1,22 @@
+@startuml
+!include <C4/C4_Component>
+
+title C4 Level 3 - Voice chat app in USER mode (components)
+
+Container_Ext(vcaHost, "Voice chat app\n(host mode)")
+
+Container_Boundary(vca, "Voice chat app\n(user mode)") {
+    Component(audioCapture, "AudioCapture", "Module", "Captures user voice")
+    Component(networkSender, "NetworkSender", "Module", "Sends data")
+    Component(networkReceiver, "NetworkReceiver", "Module", "Gets data")
+    Component(sessionManager, "SessionManager", "Module", "Manages participants of voice chat")
+    Component(audioPlayback, "AudioPlayback", "Module", "Plays audio")
+    Component(audioConfig, "AudioConfig", "Module", "Stores audio configuration")
+    Component(ui, "UI", "Module", "UI module")
+}
+
+Rel(ui, sessionManager, "Transmits host socket", "Method call")
+Rel(vcaHost, networkReceiver, "Sends audio data", "UDP")
+Rel(ui, sessionManager, "Starts session", "Method call")
+
+@enduml
