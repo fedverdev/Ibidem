@@ -3,12 +3,29 @@
 
 title C4 Level 3 - Voice chat app in HOST mode (components)
 
-Person(host, "Host")
+Container_Ext(vcaUser, "Voice chat app\n(user mode)")
 
-Container_Boundary(vca, "Voice chat app") {
-    Component(audio, "Audio", "Package")
-    Component(ui, "UI", "Package")
-    Component(network, "Network", "Package")
+Container_Boundary(vca, "Voice chat app\n(host mode)") {
+    Component(audioCapture, "AudioCapture", "Module", "Captures user voice")
+    Component(networkSender, "NetworkSender", "Module", "Sends data")
+    Component(networkReceiver, "NetworkReceiver", "Module", "Gets data")
+    Component(sessionManager, "SessionManager", "Module", "Manages participants of voice chat")
+    Component(audioPlayback, "AudioPlayback", "Module", "Plays audio")
+    Component(audioConfig, "AudioConfig", "Module", "Stores audio configuration")
+    Component(ui, "UI", "Module", "UI module")
 }
+
+Rel(vcaUser, networkReceiver, "Sends join request", "TCP/JSON")
+Rel(networkReceiver, sessionManager, "Transmits join request", "Method call")
+Rel(vcaUser, networkReceiver, "Sends audio", "UDP")
+Rel(networkReceiver, audioPlayback, "Transmits audio data", "Method call")
+Rel(networkReceiver, networkSender, "Transmits audio data", "Method call")
+Rel(networkSender, sessionManager, "Gets participants sockets", "Method call")
+Rel(audioCapture, networkSender, "Transmits audio data", "Method call")
+Rel(audioCapture, audioConfig, "Gets audio configuration", "Method call")
+Rel(audioPlayback, audioConfig, "Gets audio configuration", "Method call")
+Rel(ui, sessionManager, "Creates voice chat session", "Method call")
+Rel(sessionManager, ui, "Transmits participants information", "Method call")
+Rel(networkSender, vcaUser, "Sends aggregated audio", "UDP")
 
 @enduml
