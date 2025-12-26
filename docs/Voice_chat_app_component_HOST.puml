@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Component>
+
+title C4 Level 3 - Voice chat app in HOST mode (components)
+
+Person(host, "Host")
+
+Container_Boundary(vca, "Voice chat app") {
+    Component(audio, "Audio", "Package")
+    Component(ui, "UI", "Package")
+    Component(network, "Network", "Package")
+}
+
+@enduml

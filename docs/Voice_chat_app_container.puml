@@ -1,0 +1,20 @@
+@startuml
+!include <C4/C4_Container>
+
+title C4 Level 2 – Voice chat app (containers)
+
+Person(user, "User")
+Person(host, "Host")
+
+System_Boundary(vc, "Voice chat system") {
+    Container(voiceChatHostMode, "Voice chat app\n(host mode)", "Voice chat application in host mode")
+    Container(voiceChatUserMode, "Voice chat app\n(user mode)", "Voice chat application in user mode")
+}
+
+Rel(voiceChatHostMode, voiceChatUserMode, "Sends aggregated voices")
+Rel(voiceChatUserMode, voiceChatHostMode, "Sends user's voice")
+
+Rel_L(user, voiceChatUserMode, "Uses")
+Rel_L(host, voiceChatHostMode, "Uses")
+
+@enduml

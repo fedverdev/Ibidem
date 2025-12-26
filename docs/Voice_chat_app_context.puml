@@ -1,0 +1,21 @@
+@startuml
+
+!include <C4/C4_Context>
+
+title C4 level 1 - Voice chat system diagram (context).
+Person(host, "Host", "A person that uses the app as host")
+Person(user1, "User 1", "A person that uses the app")
+Person(user2, "User 2", "A person that uses the app")
+
+System(voiceChatSystem, "Voice chat system", "The system that provides voice chatting over VPN")
+
+Rel(user1, voiceChatSystem, "Sends his voice")
+Rel(voiceChatSystem, user1, "Sends others' voices")
+
+Rel(user2, voiceChatSystem, "Sends his voice")
+Rel(voiceChatSystem, user2, "Sends others' voices")
+
+Rel(host, voiceChatSystem, "Sends his voice")
+Rel(voiceChatSystem, host, "Sends others' voices")
+
+@enduml
