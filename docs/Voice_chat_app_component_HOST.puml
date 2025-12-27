@@ -26,11 +26,11 @@ Rel(orchestrator, session, "Creates session")
 Rel(orchestrator, session, "Handles participants/host data")
 
 BiRel(audio, orchestrator, "Transmits audio")
-Rel(orchestrator, network, "Sends audio")
+Rel(orchestrator, network, "Sends audio/tcp requests")
 Rel(orchestrator, network, "Open tcp/udp connections")
 
 ' network
-Rel(vcaExt, network, "Sends audio/tcp requests")
+BiRel(vcaExt, network, "Sends audio/tcp requests")
 Rel(network, orchestrator, "Transmits audio/request")
 
 @enduml
