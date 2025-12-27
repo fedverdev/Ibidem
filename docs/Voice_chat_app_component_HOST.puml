@@ -1,26 +1,36 @@
 @startuml
 !include <C4/C4_Component>
 
-title C4 Level 3 - Voice chat app in HOST mode (components)
+title C4 Level 3 - Voice chat app (components)
 
-Container_Ext(vcaUser, "Voice chat app\n(user mode)")
-Person(host, "Host")
+Container_Ext(vcaExt, "Voice chat app")
+Person(user, "User")
 
-Container_Boundary(vca, "Voice chat app\n(host mode)") {
-    Component(network, "Network", "Module", "Network module")
-    Component(audio, "Audio", "Module", "Audio module")
-    Component(session, "Session", "Module", "Session module")
-    Component(ui, "UI", "Module", "UI module")
+Container_Boundary(vca, "Voice chat app") {
+    Component(network, "Network", "Module", "Handles network operations")
+    Component(audio, "Audio", "Module", "Captures and playbacks audio")
+    Component(session, "Session", "Module", "Handles session. Stores addresses of all session members or the address of the host")
+    Component(ui, "UI", "Module", "Handles user input")
+    Component(orchestrator, "Orchestrator", "Module", "Orchestrates data flow depending on application mode (host/user). Aggregates audio if in host mode")
 }
 
-Rel(vcaUser, network, "Sends audio/join request")
-Rel(network, session, "Adds participant")
-Rel(host, ui, "Starts/stops session")
-Rel(ui, host, "Show participants data")
-Rel(audio, network, "Transmits audio")
-Rel(network, vcaUser, "Sends audio")
-Rel(network, session, "Gets participants data")
-Rel_L(ui, session, "Starts/stops session")
-Rel(session, network, "Starts/stops udp/tcp server")
+' app mode
+Rel(user, ui, "Switches app mode")
+Rel(user, ui, "Starts session")
+
+' orchestration
+Rel(ui, orchestrator, "Switches application mode")
+Rel(ui, orchestrator, "Creates session")
+
+Rel(orchestrator, session, "Creates session")
+Rel(orchestrator, session, "Handles participants/host data")
+
+BiRel(audio, orchestrator, "Transmits audio")
+Rel(orchestrator, network, "Sends audio")
+Rel(orchestrator, network, "Open tcp/udp connections")
+
+' network
+Rel(vcaExt, network, "Sends audio/tcp requests")
+Rel(network, orchestrator, "Transmits audio/request")
 
 @enduml
