@@ -2,10 +2,7 @@ package com.github.fedverdev.audio.playback;
 
 import com.github.fedverdev.audio.enums.AudioType;
 import com.github.fedverdev.audio.provider.AudioLineProvider;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,8 +14,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-@DisplayName("Audio playback test")
+@DisplayName("Playback")
 @ExtendWith(MockitoExtension.class)
+@Tag("Audio")
 public class AudioPlaybackTest {
 
     @Mock
