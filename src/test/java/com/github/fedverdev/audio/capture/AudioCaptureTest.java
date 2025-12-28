@@ -42,9 +42,9 @@ public class AudioCaptureTest {
             Assertions.assertInstanceOf(DefaultAudioCapture.class, audioCapture);
         }
 
-        @DisplayName("should correctly read buffer")
+        @DisplayName("should correctly capture")
         @Test
-        public void shouldReadCorrectData() throws Exception {
+        public void shouldCaptureCorrectData() throws Exception {
             byte[] expected = new byte[] {1, 2, 3, 4, 5};
             byte[] actual = new byte[5];
 
