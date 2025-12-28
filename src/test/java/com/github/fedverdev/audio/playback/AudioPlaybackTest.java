@@ -1,6 +1,5 @@
 package com.github.fedverdev.audio.playback;
 
-import com.github.fedverdev.audio.capture.DefaultAudioCapture;
 import com.github.fedverdev.audio.enums.AudioType;
 import com.github.fedverdev.audio.provider.AudioLineProvider;
 import org.junit.jupiter.api.Assertions;
