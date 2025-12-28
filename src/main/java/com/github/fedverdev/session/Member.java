@@ -21,7 +21,7 @@ public class Member {
     private MemberType memberType;
 
     public enum MemberType {
-        participant,
+        member,
         host
     }
 

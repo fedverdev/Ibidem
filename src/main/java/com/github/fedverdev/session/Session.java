@@ -22,4 +22,11 @@ public class Session {
     public Set<Member> getAllMembers() {
         return members;
     }
+
+    public Member getHost() {
+        return members
+                .stream()
+                .filter((member) -> member.getMemberType() == Member.MemberType.host)
+                .findFirst().orElse(null);
+    }
 }
