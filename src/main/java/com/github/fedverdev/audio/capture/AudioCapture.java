@@ -5,7 +5,7 @@ import javax.sound.sampled.LineUnavailableException;
 public interface AudioCapture {
     public void startCapture() throws LineUnavailableException;
 
-    public void stopCapture() throws LineUnavailableException;
+    public void stopCapture();
 
-    public void captureTo(byte[] data);
+    public void captureTo(byte[] buffer);
 }

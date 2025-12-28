@@ -1,33 +1,34 @@
-package com.github.fedverdev.audio.capture;
+package com.github.fedverdev.audio.playback;
 
 import com.github.fedverdev.audio.AudioConfig;
 import com.github.fedverdev.audio.enums.AudioType;
 import com.github.fedverdev.audio.provider.AudioLineProvider;
 import lombok.AllArgsConstructor;
 
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.SourceDataLine;
 
 @AllArgsConstructor
-public class AudioCaptureFactory {
+public class AudioPlaybackFactory {
     private AudioLineProvider provider;
 
-    public AudioCapture create(AudioType type) throws LineUnavailableException {
+    public AudioPlayback create(AudioType type) throws LineUnavailableException {
         switch (type) {
             case DEFAULT_TYPE:
-                return new DefaultAudioCapture(getDefaultTargetDataLine());
+                return new DefaultAudioPlayback(getDefaultSourceDataLine());
             default:
                 throw new IllegalArgumentException(String.format("type [%s] is not supported", type));
         }
     }
 
-    private TargetDataLine getDefaultTargetDataLine() throws LineUnavailableException{
-        DataLine.Info info = new DataLine.Info(TargetDataLine.class, AudioConfig.FORMAT);
+    public SourceDataLine getDefaultSourceDataLine() throws LineUnavailableException {
+        DataLine.Info info = new DataLine.Info(SourceDataLine.class, AudioConfig.FORMAT);
         if (!provider.isLineSupported(info)) {
             throw new LineUnavailableException();
         }
 
-        return provider.getTargetLine(info);
+        return (SourceDataLine) AudioSystem.getLine(info);
     }
 }

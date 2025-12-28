@@ -1,9 +1,6 @@
 package com.github.fedverdev.audio.provider;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.*;
 
 public class JavaxAudioLineProvider implements AudioLineProvider {
     @Override
@@ -12,7 +9,12 @@ public class JavaxAudioLineProvider implements AudioLineProvider {
     }
 
     @Override
-    public TargetDataLine getLine(DataLine.Info info) throws LineUnavailableException {
+    public TargetDataLine getTargetLine(DataLine.Info info) throws LineUnavailableException {
         return (TargetDataLine) AudioSystem.getLine(info);
+    }
+
+    @Override
+    public SourceDataLine getSourceLine(DataLine.Info info) throws LineUnavailableException {
+        return (SourceDataLine) AudioSystem.getLine(info);
     }
 }

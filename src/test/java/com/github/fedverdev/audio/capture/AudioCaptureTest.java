@@ -1,6 +1,6 @@
 package com.github.fedverdev.audio.capture;
 
-import com.github.fedverdev.audio.AudioConfig;
+import com.github.fedverdev.audio.enums.AudioType;
 import com.github.fedverdev.audio.provider.AudioLineProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -33,10 +33,10 @@ public class AudioCaptureTest {
         @Test
         public void shouldCreateDefaultAudioCapture() throws Exception {
             when(mockAudioLineProvider.isLineSupported(any())).thenReturn(true);
-            when(mockAudioLineProvider.getLine(any())).thenReturn(mockTargetDataLine);
+            when(mockAudioLineProvider.getTargetLine(any())).thenReturn(mockTargetDataLine);
 
             AudioCaptureFactory audioCaptureFactory = new AudioCaptureFactory(mockAudioLineProvider);
-            AudioCapture audioCapture = audioCaptureFactory.create(AudioCaptureFactory.AudioCaptureType.DEFAULT_TYPE);
+            AudioCapture audioCapture = audioCaptureFactory.create(AudioType.DEFAULT_TYPE);
 
             Assertions.assertNotNull(audioCapture);
             Assertions.assertInstanceOf(DefaultAudioCapture.class, audioCapture);
@@ -59,10 +59,10 @@ public class AudioCaptureTest {
                     });
 
             when(mockAudioLineProvider.isLineSupported(any())).thenReturn(true);
-            when(mockAudioLineProvider.getLine(any())).thenReturn(mockTargetDataLine);
+            when(mockAudioLineProvider.getTargetLine(any())).thenReturn(mockTargetDataLine);
 
             AudioCaptureFactory audioCaptureFactory = new AudioCaptureFactory(mockAudioLineProvider);
-            AudioCapture audioCapture = audioCaptureFactory.create(AudioCaptureFactory.AudioCaptureType.DEFAULT_TYPE);
+            AudioCapture audioCapture = audioCaptureFactory.create(AudioType.DEFAULT_TYPE);
 
             audioCapture.captureTo(actual);
 
