@@ -29,6 +29,6 @@ public class AudioPlaybackFactory {
             throw new LineUnavailableException();
         }
 
-        return (SourceDataLine) AudioSystem.getLine(info);
+        return provider.getSourceLine(info);
     }
 }
